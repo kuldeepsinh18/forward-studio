@@ -558,44 +558,7 @@ body {
   }
 }
 
-/* ──────────────────────────────────────────────────
-   CURSOR CUSTOM (optional enhancement)
-────────────────────────────────────────────────── */
 
-.cursor-dot {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transition: transform 0.1s var(--ease-premium),
-              opacity 0.3s var(--ease-premium);
-  transform: translate(-50%, -50%);
-}
-
-.cursor-ring {
-  position: fixed;
-  width: 36px;
-  height: 36px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9997;
-  transition: transform 0.12s var(--ease-premium),
-              width 0.3s var(--ease-premium),
-              height 0.3s var(--ease-premium),
-              border-color 0.3s var(--ease-premium),
-              opacity 0.3s var(--ease-premium);
-  transform: translate(-50%, -50%);
-}
-
-.cursor-ring.is-hovering {
-  width: 60px;
-  height: 60px;
-  border-color: rgba(209, 254, 23, 0.4);
-}
 
 /* ──────────────────────────────────────────────────
    PAGE TRANSITION OVERLAY

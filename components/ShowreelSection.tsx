@@ -11,15 +11,16 @@ export function ShowreelSection() {
       }}
     >
       <div style={{ position: "relative", width: "100%" }}>
-        {/* Temporary CSS placeholder for the video until asset can be copied */}
-        <div
-          style={{
-            width: "100%",
-            paddingBottom: "56.25%", // 16:9 aspect ratio
-            background: "#111111", // Dark gray to represent video
-            display: "block",
-          }}
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover"
+        >
+          <source src="/Video/showreel.mp4" type="video/mp4" />
+        </video>
 
         {/* Minimal centered text over the video exactly like Daima */}
         <div

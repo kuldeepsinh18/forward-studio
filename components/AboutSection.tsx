@@ -26,10 +26,8 @@ const staggerContainer = {
 
 export function AboutSection() {
   return (
-    <section
-      id="about"
-      className="w-full bg-[#050505] text-white py-20 lg:py-[140px] px-5 lg:px-[4.5rem]"
-    >
+    <section id="about" className="w-full bg-[#050505] text-white py-[80px] lg:py-[140px] px-5 lg:px-[4.5rem] relative overflow-hidden">
+      {/* Subtle Noise Texture */}
       <motion.div
         initial="hidden"
         whileInView="visible"

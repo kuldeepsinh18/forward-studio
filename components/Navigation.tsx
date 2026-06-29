@@ -4,11 +4,10 @@ import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const navLinks = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Works", href: "#works" },
-  { label: "Articles", href: "#articles" },
-  { label: "Playground", href: "#playground" },
+  { label: "Services", href: "#services" },
 ];
 
 export function Navigation() {
@@ -34,7 +33,7 @@ export function Navigation() {
     >
       {/* ── Logo (Left) ── */}
       <Link
-        href="/"
+        href="#home"
         aria-label="Forward Studio Home"
         className="text-[20px] lg:text-[24px] font-medium tracking-[-0.04em] text-white no-underline leading-none"
       >

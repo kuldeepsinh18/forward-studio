@@ -1,6 +1,7 @@
 export function HeroSection() {
   return (
     <section
+      id="home"
       className="relative h-[60vh] bg-[#050505] flex flex-col"
     >
       {/* Top 65% empty space */}

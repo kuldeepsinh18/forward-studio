@@ -3,6 +3,8 @@ import { ShowreelSection } from "@/components/ShowreelSection";
 import { AboutSection } from "@/components/AboutSection";
 import { WorksSection } from "@/components/WorksSection";
 import { ServicesSection } from "@/components/ServicesSection";
+import { BrandsSection } from "@/components/BrandsSection";
+import { FooterSection } from "@/components/FooterSection";
 
 export default function Home() {
   return (
@@ -12,7 +14,8 @@ export default function Home() {
       <AboutSection />
       <WorksSection />
       <ServicesSection />
-      {/* More sections coming soon */}
+      <BrandsSection />
+      <FooterSection />
     </>
   );
 }

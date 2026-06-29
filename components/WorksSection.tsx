@@ -83,7 +83,7 @@ export function WorksSection() {
   return (
     <section
       id="works"
-      className="w-full bg-[#050505] text-white py-12 lg:py-20 px-0 lg:px-[4.5rem] overflow-hidden"
+      className="w-full bg-[#050505] text-white pt-[60px] pb-[100px] lg:pt-[100px] lg:pb-[160px] px-5 lg:px-[4.5rem] overflow-hidden"
       onMouseEnter={stopAutoPlay}
       onMouseLeave={startAutoPlay}
     >

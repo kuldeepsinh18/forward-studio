@@ -4,7 +4,6 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Preloader } from "@/components/Preloader";
 import { Navigation } from "@/components/Navigation";
-import { CustomCursor } from "@/components/CustomCursor";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
 
 const inter = Inter({
@@ -61,7 +60,6 @@ export default function RootLayout({
         <Providers>
           <Preloader />
           <NoiseOverlay />
-          <CustomCursor />
           <Navigation />
           <main>{children}</main>
         </Providers>

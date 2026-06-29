@@ -49,7 +49,7 @@ const fadeUpVariant = {
 
 export function ServicesSection() {
   return (
-    <section className="w-full bg-[#050505] text-white py-[80px] lg:py-[140px] px-5 lg:px-[4.5rem]">
+    <section id="services" className="w-full bg-[#050505] text-white py-[80px] lg:py-[140px] px-5 lg:px-[4.5rem]">
       <div className="max-w-[1600px] mx-auto">
         
         {/* Header - Left: Label, Right: Large Heading */}
