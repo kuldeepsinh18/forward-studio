@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, cubicBezier } from "framer-motion";
 
 export function Preloader() {
   const [progress, setProgress] = useState(0);
@@ -61,7 +61,7 @@ export function Preloader() {
           exit={{ opacity: 0 }}
           transition={{
             duration: 0.9,
-            ease: [0.76, 0, 0.24, 1],
+            ease: cubicBezier(0.76, 0, 0.24, 1),
             delay: isExiting ? 0 : 0,
           }}
         >
@@ -76,7 +76,7 @@ export function Preloader() {
                   transition={{
                     duration: 0.7,
                     delay: 0.1 + i * 0.04,
-                    ease: [0.19, 1, 0.22, 1],
+                    ease: cubicBezier(0.19, 1, 0.22, 1),
                   }}
                   style={{ display: "inline-block", overflow: "hidden" }}
                 >
@@ -87,7 +87,7 @@ export function Preloader() {
             <motion.span
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.45, ease: [0.19, 1, 0.22, 1] }}
+              transition={{ duration: 0.5, delay: 0.45, ease: cubicBezier(0.19, 1, 0.22, 1) }}
             >
               <span className="nav__logo-dot" style={{ display: "inline-block" }} />
             </motion.span>
@@ -100,7 +100,7 @@ export function Preloader() {
                   transition={{
                     duration: 0.7,
                     delay: 0.2 + i * 0.04,
-                    ease: [0.19, 1, 0.22, 1],
+                    ease: cubicBezier(0.19, 1, 0.22, 1),
                   }}
                   style={{ display: "inline-block" }}
                 >
@@ -115,7 +115,7 @@ export function Preloader() {
             className="preloader__progress-bar"
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.6, delay: 0.5, ease: [0.19, 1, 0.22, 1] }}
+            transition={{ duration: 0.6, delay: 0.5, ease: cubicBezier(0.19, 1, 0.22, 1) }}
             style={{ transformOrigin: "left" }}
           >
             <motion.div
@@ -139,7 +139,7 @@ export function Preloader() {
           <motion.div
             initial={{ scaleY: 0 }}
             animate={isExiting ? { scaleY: 1 } : { scaleY: 0 }}
-            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: 0.8, ease: cubicBezier(0.76, 0, 0.24, 1) }}
             style={{
               position: "absolute",
               inset: 0,

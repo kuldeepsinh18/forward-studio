@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, cubicBezier } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
@@ -145,7 +145,7 @@ export function WorksSection() {
                 transition={{
                   // 1.2s smooth slide as requested
                   duration: 1.2,
-                  ease: [0.25, 1, 0.5, 1],
+                  ease: cubicBezier(0.25, 1, 0.5, 1),
                 }}
                 className={`
                   absolute
@@ -165,7 +165,7 @@ export function WorksSection() {
                 <motion.div 
                   className="absolute inset-0 bg-black pointer-events-none"
                   animate={{ opacity: absOffset * 0.4 }}
-                  transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
+                  transition={{ duration: 1.2, ease: cubicBezier(0.25, 1, 0.5, 1) }}
                 />
 
                 {/* Premium Dark Gradient from bottom */}
@@ -175,7 +175,7 @@ export function WorksSection() {
                 <motion.div 
                   className="absolute bottom-0 left-0 w-full p-8 lg:p-12 flex flex-col gap-3 z-10"
                   animate={{ y: absOffset === 0 ? 0 : 20, opacity: absOffset === 0 ? 1 : 0.6 }}
-                  transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
+                  transition={{ duration: 1.2, ease: cubicBezier(0.25, 1, 0.5, 1) }}
                 >
                   <h4 className="text-[28px] lg:text-[42px] font-medium tracking-[-0.02em] leading-[1.1] m-0 text-white shadow-sm">
                     {work.name}

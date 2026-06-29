@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, cubicBezier } from "framer-motion";
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -9,7 +9,7 @@ const fadeUpVariant = {
     y: 0,
     transition: {
       duration: 1.0,
-      ease: [0.19, 1, 0.22, 1],
+      ease: cubicBezier(0.19, 1, 0.22, 1),
     },
   },
 };
