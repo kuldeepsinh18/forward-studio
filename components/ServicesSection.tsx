@@ -52,8 +52,8 @@ export function ServicesSection() {
     <section id="services" className="w-full bg-[#050505] text-white py-[80px] lg:py-[140px] px-5 lg:px-[4.5rem]">
       <div className="max-w-[1600px] mx-auto">
         
-        {/* Header - Left: Label, Right: Large Heading */}
-        <div className="flex flex-col md:flex-row justify-between md:items-end mb-16 lg:mb-24 gap-6">
+        {/* Header - Clean left-aligned stack */}
+        <div className="flex flex-col items-start mb-16 lg:mb-24 gap-4 lg:gap-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -69,7 +69,6 @@ export function ServicesSection() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUpVariant}
-            className="md:w-3/4 lg:w-2/3"
           >
             <h3 className="text-[34px] md:text-[48px] lg:text-[60px] font-medium tracking-[-0.02em] leading-[1] text-white m-0">
               What We Do

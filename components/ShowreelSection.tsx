@@ -39,7 +39,7 @@ export function ShowreelSection() {
               fontSize: "clamp(24px, 4vw, 48px)",
               fontWeight: 500,
               letterSpacing: "-0.02em",
-              lineHeight: 1, // Fixes baseline for vertical-align super
+              lineHeight: 1,
             }}
           >
             Forward Studio
