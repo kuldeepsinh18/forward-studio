@@ -9,8 +9,8 @@ const fadeUpVariant = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.0,
-      ease: cubicBezier(0.19, 1, 0.22, 1),
+      duration: 1.2,
+      ease: cubicBezier(0.21, 0.47, 0.32, 0.98),
     },
   },
 };

@@ -37,7 +37,7 @@ export function Navigation() {
         aria-label="Forward Studio Home"
         className="text-[20px] lg:text-[24px] font-medium tracking-[-0.04em] text-white no-underline leading-none"
       >
-        Forward Studio<span className="text-[10px] lg:text-[12px] align-super">®</span>
+        Forward Studio
       </Link>
 
       {/* ── Nav Links (Center) ── */}

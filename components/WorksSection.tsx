@@ -116,8 +116,8 @@ export function WorksSection() {
             
             // Tighter overlap (70%) ensures side cards stay visible on screen 
             // even with the massive 16:10 cinematic desktop ratio
-            const xVal = offset * 70; 
-            const scaleVal = 1 - absOffset * 0.12; 
+            const xVal = offset * 85; 
+            const scaleVal = 1 - absOffset * 0.08; 
             const opacityVal = absOffset > 2 ? 0 : 1 - absOffset * 0.4;
             const zIndexVal = 10 - absOffset;
             
@@ -140,12 +140,12 @@ export function WorksSection() {
                   zIndex: zIndexVal,
                   opacity: opacityVal,
                   boxShadow: shadowVal,
-                  rotateY: offset * -15, 
+                  rotateY: offset * -20, 
                 }}
                 transition={{
-                  // 1.2s smooth slide as requested
-                  duration: 1.2,
-                  ease: cubicBezier(0.25, 1, 0.5, 1),
+                  // 1.4s smooth slide as requested
+                  duration: 1.4,
+                  ease: cubicBezier(0.76, 0, 0.24, 1),
                 }}
                 className={`
                   absolute
@@ -165,7 +165,7 @@ export function WorksSection() {
                 <motion.div 
                   className="absolute inset-0 bg-black pointer-events-none"
                   animate={{ opacity: absOffset * 0.4 }}
-                  transition={{ duration: 1.2, ease: cubicBezier(0.25, 1, 0.5, 1) }}
+                  transition={{ duration: 1.4, ease: cubicBezier(0.76, 0, 0.24, 1) }}
                 />
 
                 {/* Premium Dark Gradient from bottom */}
@@ -175,7 +175,7 @@ export function WorksSection() {
                 <motion.div 
                   className="absolute bottom-0 left-0 w-full p-8 lg:p-12 flex flex-col gap-3 z-10"
                   animate={{ y: absOffset === 0 ? 0 : 20, opacity: absOffset === 0 ? 1 : 0.6 }}
-                  transition={{ duration: 1.2, ease: cubicBezier(0.25, 1, 0.5, 1) }}
+                  transition={{ duration: 1.4, ease: cubicBezier(0.76, 0, 0.24, 1) }}
                 >
                   <h4 className="text-[28px] lg:text-[42px] font-medium tracking-[-0.02em] leading-[1.1] m-0 text-white shadow-sm">
                     {work.name}
@@ -190,7 +190,7 @@ export function WorksSection() {
                   <motion.div 
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
-                    transition={{ delay: 0.2, duration: 1.2 }}
+                    transition={{ delay: 0.2, duration: 1.4 }}
                     className="absolute inset-0 border border-white/10 rounded-[24px] lg:rounded-[32px] pointer-events-none"
                   />
                 )}

@@ -41,8 +41,8 @@ const fadeUpVariant = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.0,
-      ease: cubicBezier(0.19, 1, 0.22, 1),
+      duration: 1.2,
+      ease: cubicBezier(0.21, 0.47, 0.32, 0.98),
     },
   },
 };
@@ -86,7 +86,7 @@ export function ServicesSection() {
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={fadeUpVariant}
-              className="group border-t border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between py-8 lg:py-12 gap-4 lg:gap-0 cursor-pointer"
+              className="group border-t border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between py-6 lg:py-10 gap-4 lg:gap-0 cursor-pointer"
             >
               {/* Number */}
               <div className="w-full lg:w-[15%] text-[13px] lg:text-[15px] text-white/40 font-medium tracking-wide">
@@ -95,14 +95,14 @@ export function ServicesSection() {
 
               {/* Title */}
               <div className="w-full lg:w-[45%]">
-                <h4 className="text-[24px] md:text-[32px] lg:text-[38px] font-medium tracking-normal text-white/70 group-hover:text-white transition-all duration-500 ease-out group-hover:translate-x-3">
+                <h4 className="text-[20px] md:text-[26px] lg:text-[32px] font-medium tracking-normal text-white/70 group-hover:text-white transition-all duration-500 ease-out group-hover:translate-x-3">
                   {service.title}
                 </h4>
               </div>
 
               {/* Description */}
               <div className="w-full lg:w-[40%] flex lg:justify-end">
-                <p className="text-[14px] lg:text-[16px] text-white/40 group-hover:text-white/70 transition-colors duration-500 max-w-xs lg:text-right font-light leading-relaxed">
+                <p className="text-[14px] lg:text-[16px] text-white/50 group-hover:text-white/80 transition-colors duration-500 max-w-xs lg:text-right font-light leading-[1.7]">
                   {service.desc}
                 </p>
               </div>

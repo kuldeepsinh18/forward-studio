@@ -1,16 +1,17 @@
-import Image from "next/image";
+"use client";
+
+import { motion, cubicBezier } from "framer-motion";
 
 export function ShowreelSection() {
   return (
-    <section
-      style={{
-        width: "100%",
-        display: "block", // No extra flex spacing
-        lineHeight: 0, // Removes tiny space below inline images
-        position: "relative",
-      }}
-    >
-      <div style={{ position: "relative", width: "100%" }}>
+    <section className="w-full bg-[#050505] py-[60px] lg:py-[100px] overflow-hidden">
+      <motion.div 
+        initial={{ scale: 0.95, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        viewport={{ once: true, margin: "-10%" }}
+        transition={{ duration: 1.6, ease: cubicBezier(0.76, 0, 0.24, 1) }}
+        className="w-full relative leading-none"
+      >
         <video
           autoPlay
           muted
@@ -41,10 +42,10 @@ export function ShowreelSection() {
               lineHeight: 1, // Fixes baseline for vertical-align super
             }}
           >
-            Forward Studio<span style={{ fontSize: "0.5em", verticalAlign: "super" }}>®</span>
+            Forward Studio
           </span>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
