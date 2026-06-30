@@ -44,7 +44,7 @@ const works = [
 ];
 
 // Individual project — 100vw × 100vh, text centered, background parallax
-function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick: () => void }) {
+function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick?: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -57,12 +57,14 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick: () =
   // Text parallax — moves slightly faster than background for depth
   const textY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
+  const isClickable = work.id === 1 || work.id === 2;
+
   return (
     <motion.div
       ref={ref}
-      className="relative w-full overflow-hidden cursor-pointer group"
+      className={`relative w-full overflow-hidden group ${isClickable ? 'cursor-pointer' : 'cursor-default'}`}
       style={{ height: "100vh" }}
-      onClick={onClick}
+      onClick={isClickable ? onClick : undefined}
     >
       {/* Full-bleed background with parallax */}
       <motion.div
@@ -118,6 +120,9 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick: () =
         >
           {work.category}
         </p>
+        {!isClickable && (
+          <span className="text-white/30 text-xs tracking-widest uppercase mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Coming Soon</span>
+        )}
       </motion.div>
     </motion.div>
   );
@@ -148,6 +153,18 @@ export function WorksSection() {
 
   return (
     <>
+      {/* FORCE EAGER CACHING OF HEAVY MODAL ASSETS (Zero JS dependency) */}
+      <div style={{ display: 'none', position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
+        <img src="/selected-work/gopal-snacks/post-01.png" loading="eager" decoding="sync" alt="" />
+        <img src="/selected-work/gopal-snacks/post-02.png" loading="eager" decoding="sync" alt="" />
+        <img src="/selected-work/gopal-snacks/post-03.png" loading="eager" decoding="sync" alt="" />
+        <img src="/selected-work/gopal-snacks/post-04.png" loading="eager" decoding="sync" alt="" />
+        <img src="/selected-work/raj-air-cooler/post-01.png" loading="eager" decoding="sync" alt="" />
+        <img src="/selected-work/raj-air-cooler/post-02.png" loading="eager" decoding="sync" alt="" />
+        <img src="/selected-work/raj-air-cooler/post-03.png" loading="eager" decoding="sync" alt="" />
+        <img src="/selected-work/raj-air-cooler/post-04.png" loading="eager" decoding="sync" alt="" />
+      </div>
+
       <section id="works" className="w-full bg-[#050505] text-white">
 
         {/* ── HEADER ── */}
@@ -193,10 +210,7 @@ export function WorksSection() {
           className="w-full flex items-center justify-center"
           style={{ height: "90vh" }}
         >
-          <Link
-            href="#"
-            className="group flex items-center gap-0 no-underline"
-          >
+          <div className="group flex items-center gap-0 cursor-default">
             <motion.span
               className="text-white font-medium leading-none tracking-[-0.03em]"
               style={{ fontSize: "clamp(48px, 7vw, 100px)" }}
@@ -205,7 +219,7 @@ export function WorksSection() {
             >
               All Works (5)
             </motion.span>
-          </Link>
+          </div>
         </motion.div>
 
       </section>

@@ -66,7 +66,6 @@ const allAssets = [
   { type: 'post', num: 5 },
   { type: 'post', num: 6 },
   { type: 'reel', num: 1 },
-  { type: 'reel', num: 2 },
 ];
 
 export function RajAirCoolerModal({ isOpen, onClose }: CampaignModalProps) {
