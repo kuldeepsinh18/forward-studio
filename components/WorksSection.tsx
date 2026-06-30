@@ -1,23 +1,27 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, cubicBezier } from "framer-motion";
 import Link from "next/link";
+import { RajAirCoolerModal } from "./RajAirCoolerModal";
+import { GopalSnacksModal } from "./GopalSnacksModal";
 
 const ease = cubicBezier(0.76, 0, 0.24, 1);
 
 const works = [
   {
     id: 1,
-    name: "Mahalaxmi Masala",
-    category: "BRAND CAMPAIGN",
+    name: "Gopal Snacks",
+    category: "SOCIAL MEDIA CAMPAIGN",
     bg: "linear-gradient(160deg, #3d1a06 0%, #1e0e04 40%, #0a0805 100%)",
+    videoUrl: "/selected-work/gopal-snacks/preview.mp4",
   },
   {
     id: 2,
-    name: "Bhavani Polymers",
-    category: "PRODUCT CAMPAIGN",
-    bg: "linear-gradient(160deg, #061a10 0%, #041008 40%, #050805 100%)",
+    name: "Raj Air Cooler",
+    category: "SOCIAL MEDIA CAMPAIGN",
+    bg: "linear-gradient(160deg, #1a202c 0%, #111827 40%, #000000 100%)", // Cool tone gradient
+    videoUrl: "/selected-work/Raj%20Air%20Cooler/reel-01.mp4",
   },
   {
     id: 3,
@@ -40,7 +44,7 @@ const works = [
 ];
 
 // Individual project — 100vw × 100vh, text centered, background parallax
-function ProjectItem({ work }: { work: (typeof works)[0] }) {
+function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -56,12 +60,13 @@ function ProjectItem({ work }: { work: (typeof works)[0] }) {
   return (
     <motion.div
       ref={ref}
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden cursor-pointer group"
       style={{ height: "100vh" }}
+      onClick={onClick}
     >
       {/* Full-bleed background with parallax */}
       <motion.div
-        className="absolute inset-0 w-full"
+        className="absolute inset-0 w-full overflow-hidden"
         style={{
           background: work.bg,
           y: bgY,
@@ -70,19 +75,35 @@ function ProjectItem({ work }: { work: (typeof works)[0] }) {
           top: "-10%",
         }}
       >
-        {/* Film grain noise */}
+        {work.videoUrl && (
+          <video
+            src={work.videoUrl}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 ease-out"
+          />
+        )}
+        
+        {/* Film grain noise over background/video */}
         <div
-          className="absolute inset-0 opacity-[0.06]"
+          className="absolute inset-0 opacity-[0.06] mix-blend-overlay pointer-events-none"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
             backgroundSize: "200px 200px",
           }}
         />
+        
+        {/* Cinematic dark overlay */}
+        {work.videoUrl && (
+          <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+        )}
       </motion.div>
 
       {/* Text — centered horizontally, positioned in upper-center area of the frame */}
       <motion.div
-        className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10"
+        className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10 transition-transform duration-700 ease-out group-hover:scale-105"
         style={{ y: textY }}
       >
         <h3
@@ -92,7 +113,7 @@ function ProjectItem({ work }: { work: (typeof works)[0] }) {
           {work.name}
         </h3>
         <p
-          className="m-0 text-white/60 text-center font-semibold tracking-[0.15em]"
+          className="m-0 text-white/60 group-hover:text-white/90 transition-colors duration-500 text-center font-semibold tracking-[0.15em]"
           style={{ fontSize: "clamp(10px, 1vw, 13px)" }}
         >
           {work.category}
@@ -103,60 +124,82 @@ function ProjectItem({ work }: { work: (typeof works)[0] }) {
 }
 
 export function WorksSection() {
+  const [rajOpen, setRajOpen] = useState(false);
+  const [gopalOpen, setGopalOpen] = useState(false);
+
   return (
-    <section id="works" className="w-full bg-[#050505] text-white">
+    <>
+      <section id="works" className="w-full bg-[#050505] text-white">
 
-      {/* ── HEADER ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.9, ease }}
-        className="w-full px-5 lg:px-[4.5rem] pt-[100px] lg:pt-[140px]"
-      >
-        <div className="max-w-[1600px] mx-auto pb-6 lg:pb-8">
-          <span
-            className="text-white font-medium tracking-[-0.02em] leading-none"
-            style={{ fontSize: "clamp(28px, 3.5vw, 52px)" }}
-          >
-            Selected Work
-          </span>
-        </div>
-        {/* Full-width thin divider */}
-        <div className="w-full h-px bg-white/[0.08]" />
-      </motion.div>
-
-      {/* ── PROJECTS ── */}
-      <div className="w-full mt-[60px] lg:mt-[80px]">
-        {works.map((work) => (
-          <ProjectItem key={work.id} work={work} />
-        ))}
-      </div>
-
-      {/* ── ALL WORKS CTA ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 1.0, ease }}
-        className="w-full flex items-center justify-center"
-        style={{ height: "90vh" }}
-      >
-        <Link
-          href="#"
-          className="group flex items-center gap-0 no-underline"
+        {/* ── HEADER ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.9, ease }}
+          className="w-full px-5 lg:px-[4.5rem] pt-[100px] lg:pt-[140px]"
         >
-          <motion.span
-            className="text-white font-medium leading-none tracking-[-0.03em]"
-            style={{ fontSize: "clamp(48px, 7vw, 100px)" }}
-            whileHover={{ opacity: 0.7 }}
-            transition={{ duration: 0.3 }}
-          >
-            All Works (5)
-          </motion.span>
-        </Link>
-      </motion.div>
+          <div className="max-w-[1600px] mx-auto pb-6 lg:pb-8">
+            <span
+              className="text-white font-medium tracking-[-0.02em] leading-none"
+              style={{ fontSize: "clamp(28px, 3.5vw, 52px)" }}
+            >
+              Selected Work
+            </span>
+          </div>
+          {/* Full-width thin divider */}
+          <div className="w-full h-px bg-white/[0.08]" />
+        </motion.div>
 
-    </section>
+        {/* ── PROJECTS ── */}
+        <div className="w-full mt-[60px] lg:mt-[80px]">
+          {works.map((work) => (
+            <ProjectItem 
+              key={work.id} 
+              work={work} 
+              onClick={() => {
+                if (work.id === 1) setGopalOpen(true);
+                if (work.id === 2) setRajOpen(true);
+              }} 
+            />
+          ))}
+        </div>
+
+        {/* ── ALL WORKS CTA ── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 1.0, ease }}
+          className="w-full flex items-center justify-center"
+          style={{ height: "90vh" }}
+        >
+          <Link
+            href="#"
+            className="group flex items-center gap-0 no-underline"
+          >
+            <motion.span
+              className="text-white font-medium leading-none tracking-[-0.03em]"
+              style={{ fontSize: "clamp(48px, 7vw, 100px)" }}
+              whileHover={{ opacity: 0.7 }}
+              transition={{ duration: 0.3 }}
+            >
+              All Works (5)
+            </motion.span>
+          </Link>
+        </motion.div>
+
+      </section>
+
+      {/* Campaign Detail Modals */}
+      <RajAirCoolerModal 
+        isOpen={rajOpen} 
+        onClose={() => setRajOpen(false)} 
+      />
+      <GopalSnacksModal 
+        isOpen={gopalOpen} 
+        onClose={() => setGopalOpen(false)} 
+      />
+    </>
   );
 }
