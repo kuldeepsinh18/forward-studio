@@ -43,16 +43,16 @@ const overlayVariants: Variants = {
   }
 };
 
-// Item reveal on scroll with staggered delays
+// Item reveal on scroll with fast stagger
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 60, scale: 0.96 },
+  hidden: { opacity: 0, y: 40, scale: 0.98 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      delay: i * 0.1, // Stagger sequence
-      duration: 1.2,
+      delay: i * 0.04, // Fast, premium ripple
+      duration: 0.7,
       ease: [0.16, 1, 0.3, 1], // Premium easing
     }
   })
@@ -155,6 +155,10 @@ export function GopalSnacksModal({ isOpen, onClose }: CampaignModalProps) {
                         src={`/selected-work/gopal-snacks/post-0${asset.num}.png`} 
                         alt={`Gopal Snacks Post 0${asset.num}`} 
                         className="w-full h-full object-cover"
+                        loading={index < 4 ? undefined : "lazy"}
+                        // @ts-ignore: React 18 supports fetchPriority but TS might complain depending on version
+                        fetchPriority={index < 4 ? "high" : "auto"}
+                        decoding={index < 4 ? "sync" : "async"}
                         onError={(e) => {
                           (e.target as HTMLImageElement).src = `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%25" height="100%25" viewBox="0 0 400 500"%3E%3Crect width="400" height="500" fill="%23111"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23555" font-family="sans-serif" font-size="16"%3Epost-0${asset.num}.png%3C/text%3E%3C/svg%3E`;
                         }}
@@ -167,6 +171,7 @@ export function GopalSnacksModal({ isOpen, onClose }: CampaignModalProps) {
                           muted
                           loop
                           playsInline
+                          preload="none"
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 flex items-center justify-center -z-10 bg-[#111]">

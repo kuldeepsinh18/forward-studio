@@ -21,7 +21,7 @@ const works = [
     name: "Raj Air Cooler",
     category: "SOCIAL MEDIA CAMPAIGN",
     bg: "linear-gradient(160deg, #1a202c 0%, #111827 40%, #000000 100%)", // Cool tone gradient
-    videoUrl: "/selected-work/Raj%20Air%20Cooler/reel-01.mp4",
+    videoUrl: "/selected-work/raj-air-cooler/reel-01.mp4",
   },
   {
     id: 3,
