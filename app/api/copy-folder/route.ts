@@ -18,6 +18,6 @@ export async function GET() {
     
     return NextResponse.json({ status: 'success', filesCopied: files.length });
   } catch (e) {
-    return NextResponse.json({ status: 'error', error: e.message });
+    return NextResponse.json({ status: 'error', error: e instanceof Error ? e.message : 'Unknown error' });
   }
 }

@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 interface CampaignModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const modalVariants = {
+const modalVariants: Variants = {
   hidden: { opacity: 0, y: "100%" },
   visible: { 
     opacity: 1, 
@@ -28,7 +28,7 @@ const modalVariants = {
   }
 };
 
-const overlayVariants = {
+const overlayVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { 
     opacity: 1,
@@ -40,7 +40,7 @@ const overlayVariants = {
   }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -51,7 +51,7 @@ const staggerContainer = {
   }
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,

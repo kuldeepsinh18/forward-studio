@@ -2,10 +2,10 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-function walk(dir) {
-  let results = [];
+function walk(dir: string): string[] {
+  let results: string[] = [];
   const list = fs.readdirSync(dir);
-  list.forEach(function(file) {
+  list.forEach(function(file: string) {
     file = path.join(dir, file);
     const stat = fs.statSync(file);
     if (stat && stat.isDirectory()) { 

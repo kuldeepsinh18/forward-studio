@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 interface CampaignModalProps {
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface CampaignModalProps {
 }
 
 // Cinematic modal entry: subtle scale + fade + slight Y movement
-const modalVariants = {
+const modalVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95, y: 30 },
   visible: { 
     opacity: 1, 
@@ -31,7 +31,7 @@ const modalVariants = {
   }
 };
 
-const overlayVariants = {
+const overlayVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { 
     opacity: 1,
@@ -44,7 +44,7 @@ const overlayVariants = {
 };
 
 // Item reveal on scroll with staggered delays
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 60, scale: 0.96 },
   visible: (i: number) => ({
     opacity: 1,
