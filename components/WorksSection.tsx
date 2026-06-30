@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, cubicBezier } from "framer-motion";
 import Link from "next/link";
 import { RajAirCoolerModal } from "./RajAirCoolerModal";
@@ -126,6 +126,25 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick: () =
 export function WorksSection() {
   const [rajOpen, setRajOpen] = useState(false);
   const [gopalOpen, setGopalOpen] = useState(false);
+
+  // Preload first row of assets for instant modal opening without compression
+  useEffect(() => {
+    const heavyAssetsToPreload = [
+      '/selected-work/gopal-snacks/post-01.png',
+      '/selected-work/gopal-snacks/post-02.png',
+      '/selected-work/gopal-snacks/post-03.png',
+      '/selected-work/gopal-snacks/post-04.png',
+      '/selected-work/raj-air-cooler/post-01.png',
+      '/selected-work/raj-air-cooler/post-02.png',
+      '/selected-work/raj-air-cooler/post-03.png',
+      '/selected-work/raj-air-cooler/post-04.png',
+    ];
+    // Create silent Image objects to force browser caching
+    heavyAssetsToPreload.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
 
   return (
     <>

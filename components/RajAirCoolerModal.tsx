@@ -148,7 +148,7 @@ export function RajAirCoolerModal({ isOpen, onClose }: CampaignModalProps) {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-40px" }}
-                    className="w-full aspect-[4/5] bg-white/5 rounded-xl overflow-hidden relative transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-3 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] cursor-pointer z-10 hover:z-20"
+                    className="w-full aspect-[4/5] bg-white/5 animate-pulse rounded-xl overflow-hidden relative transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-3 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] cursor-pointer z-10 hover:z-20"
                   >
                     {asset.type === 'post' ? (
                       <img 
