@@ -62,7 +62,7 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] as any },
+    transition: { duration: 1.0, ease: [0.76, 0, 0.24, 1] as any },
   },
 };
 
@@ -88,28 +88,28 @@ const ProjectCard = ({ project, onClick }: { project: any, onClick?: () => void 
             loop
             playsInline
             preload="none"
-            className="absolute inset-0 w-full h-full object-cover object-center opacity-50 group-hover:opacity-80 transition-opacity duration-1000 ease-[0.22,1,0.36,1]"
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-50 group-hover:opacity-80 transition-opacity duration-700 ease-[0.16,1,0.3,1]"
           />
         )}
         
         {/* Removed heavy SVG noise overlay for vastly improved hover performance */}
         
         {/* Image scale effect */}
-        <div className="absolute inset-0 bg-transparent group-hover:scale-105 transition-transform duration-[1200ms] ease-[0.22,1,0.36,1] z-0 pointer-events-none" />
+        <div className="absolute inset-0 bg-transparent group-hover:scale-105 transition-transform duration-1000 ease-[0.16,1,0.3,1] z-0 pointer-events-none" />
       </div>
 
       {/* Content overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 z-10 transition-transform duration-[1200ms] ease-[0.22,1,0.36,1] group-hover:scale-105">
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 z-10 transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105">
         <h3 className="text-3xl md:text-4xl font-medium tracking-tight text-white mb-2 text-center drop-shadow-2xl">
           {project.name}
         </h3>
-        <p className="text-xs md:text-sm text-white/60 tracking-[0.2em] uppercase font-semibold text-center opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-1000 ease-[0.22,1,0.36,1]">
+        <p className="text-xs md:text-sm text-white/60 tracking-[0.2em] uppercase font-semibold text-center opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-500 ease-[0.16,1,0.3,1]">
           {project.category}
         </p>
       </div>
       
       {/* Hover borders */}
-      <div className="absolute inset-0 border border-white/0 group-hover:border-white/10 rounded-xl transition-colors duration-1000 ease-[0.22,1,0.36,1] pointer-events-none z-20"></div>
+      <div className="absolute inset-0 border border-white/0 group-hover:border-white/10 rounded-xl transition-colors duration-700 ease-[0.16,1,0.3,1] pointer-events-none z-20"></div>
     </motion.div>
   );
 };
@@ -136,26 +136,26 @@ const BrandFilmCard = ({ project, onClick }: { project: any, onClick?: () => voi
             loop
             playsInline
             preload="metadata"
-            className="absolute inset-0 w-full h-full object-cover object-center opacity-50 group-hover:opacity-80 transition-opacity duration-1000 ease-[0.22,1,0.36,1]"
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-50 group-hover:opacity-80 transition-opacity duration-700 ease-[0.16,1,0.3,1]"
           />
         )}
         
         {/* Image scale effect */}
-        <div className="absolute inset-0 bg-transparent group-hover:scale-105 transition-transform duration-[1200ms] ease-[0.22,1,0.36,1] z-0 pointer-events-none" />
+        <div className="absolute inset-0 bg-transparent group-hover:scale-105 transition-transform duration-1000 ease-[0.16,1,0.3,1] z-0 pointer-events-none" />
       </div>
 
       {/* Content overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 z-10 transition-transform duration-[1200ms] ease-[0.22,1,0.36,1] group-hover:scale-105">
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 z-10 transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105">
         <h3 className="text-3xl md:text-5xl font-medium tracking-tight text-white mb-2 text-center drop-shadow-2xl">
           {project.name}
         </h3>
-        <p className="text-xs md:text-sm text-white/60 tracking-[0.2em] uppercase font-semibold text-center opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-1000 ease-[0.22,1,0.36,1]">
+        <p className="text-xs md:text-sm text-white/60 tracking-[0.2em] uppercase font-semibold text-center opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-500 ease-[0.16,1,0.3,1]">
           {project.category}
         </p>
       </div>
       
       {/* Hover borders */}
-      <div className="absolute inset-0 border border-white/0 group-hover:border-white/10 rounded-xl transition-colors duration-1000 ease-[0.22,1,0.36,1] pointer-events-none z-20"></div>
+      <div className="absolute inset-0 border border-white/0 group-hover:border-white/10 rounded-xl transition-colors duration-700 ease-[0.16,1,0.3,1] pointer-events-none z-20"></div>
     </motion.div>
   );
 };
@@ -189,7 +189,7 @@ export default function WorksPage() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-[1600px] mx-auto flex items-center justify-between mb-16 lg:mb-24"
       >
         <Link href="/" className="text-white/60 hover:text-white transition-colors duration-300 text-xs md:text-sm tracking-widest uppercase">
@@ -205,7 +205,7 @@ export default function WorksPage() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-10 lg:mb-14 flex items-center gap-6"
         >
           <h2 className="text-xl md:text-2xl font-medium tracking-widest uppercase text-white/80">
@@ -233,7 +233,7 @@ export default function WorksPage() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-10 lg:mb-14 flex items-center gap-6"
         >
           <h2 className="text-xl md:text-2xl font-medium tracking-widest uppercase text-white/80">
