@@ -18,7 +18,15 @@ function walk(dir: string): string[] {
 }
 
 export async function GET() {
-  const dir = path.join(process.cwd(), 'public');
-  const res = walk(dir);
-  return NextResponse.json(res);
+  // Obfuscate the string so @vercel/nft doesn't statically bundle the entire 344MB public folder
+  const folderName = ['p', 'u', 'b', 'l', 'i', 'c'].join('');
+  const dir = path.join(process.cwd(), folderName);
+  
+  try {
+    const res = walk(dir);
+    return NextResponse.json(res);
+  } catch (error) {
+    // Fallback if public folder is not available at runtime on Vercel Lambda
+    return NextResponse.json({ error: "Directory not found or accessible" }, { status: 404 });
+  }
 }

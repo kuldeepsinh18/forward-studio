@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, cubicBezier } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, cubicBezier } from "framer-motion";
 import Link from "next/link";
 import { RajAirCoolerModal } from "./RajAirCoolerModal";
 import { GopalSnacksModal } from "./GopalSnacksModal";
@@ -63,6 +63,9 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick?: () 
   // Text parallax — moves slightly faster than background for depth
   const textY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
+  // Lazy loading video
+  const isInView = useInView(ref, { once: true, margin: "200px 0px" });
+
   const isClickable = work.id === 1 || work.id === 2 || work.id === 3 || work.id === 4 || work.id === 5;
 
   return (
@@ -85,11 +88,12 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick?: () 
       >
         {work.videoUrl && (
           <video
-            src={work.videoUrl}
+            src={isInView ? work.videoUrl : ""}
             autoPlay
             muted
             loop
             playsInline
+            preload="none"
             className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 ease-out"
           />
         )}
@@ -141,38 +145,10 @@ export function WorksSection() {
   const [dtcOpen, setDtcOpen] = useState(false);
   const [daburOpen, setDaburOpen] = useState(false);
 
-  // Preload first row of assets for instant modal opening without compression
-  useEffect(() => {
-    const heavyAssetsToPreload = [
-      '/selected-work/gopal-snacks/post-01.png',
-      '/selected-work/gopal-snacks/post-02.png',
-      '/selected-work/gopal-snacks/post-03.png',
-      '/selected-work/gopal-snacks/post-04.png',
-      '/selected-work/raj-air-cooler/post-01.png',
-      '/selected-work/raj-air-cooler/post-02.png',
-      '/selected-work/raj-air-cooler/post-03.png',
-      '/selected-work/raj-air-cooler/post-04.png',
-    ];
-    // Create silent Image objects to force browser caching
-    heavyAssetsToPreload.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, []);
-
+  // Removed heavy image preloading to vastly improve initial page load performance
+  
   return (
     <>
-      {/* FORCE EAGER CACHING OF HEAVY MODAL ASSETS (Zero JS dependency) */}
-      <div style={{ display: 'none', position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
-        <img src="/selected-work/gopal-snacks/post-01.png" loading="eager" decoding="sync" alt="" />
-        <img src="/selected-work/gopal-snacks/post-02.png" loading="eager" decoding="sync" alt="" />
-        <img src="/selected-work/gopal-snacks/post-03.png" loading="eager" decoding="sync" alt="" />
-        <img src="/selected-work/gopal-snacks/post-04.png" loading="eager" decoding="sync" alt="" />
-        <img src="/selected-work/raj-air-cooler/post-01.png" loading="eager" decoding="sync" alt="" />
-        <img src="/selected-work/raj-air-cooler/post-02.png" loading="eager" decoding="sync" alt="" />
-        <img src="/selected-work/raj-air-cooler/post-03.png" loading="eager" decoding="sync" alt="" />
-        <img src="/selected-work/raj-air-cooler/post-04.png" loading="eager" decoding="sync" alt="" />
-      </div>
 
       <section id="works" className="w-full bg-[#050505] text-white">
 

@@ -13,26 +13,24 @@ export function Preloader() {
     document.documentElement.style.overflow = "hidden";
 
     let currentProgress = 0;
-    const duration = 2200; // ms
-    const interval = 16; // ~60fps
-    const steps = duration / interval;
-    const increment = 100 / steps;
+    const interval = 20;
+    const increment = 100 / (1500 / interval); // Base speed to hit 99% in ~1.5s
+    let timer: NodeJS.Timeout;
 
-    // Eased progress
-    const easeInOutQuart = (t: number) =>
-      t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+    const updateProgress = () => {
+      currentProgress += increment;
+      
+      // If page is fully loaded, allow jumping to 100
+      if (document.readyState === "complete" && currentProgress > 60) {
+        currentProgress = 100;
+      } else if (currentProgress > 99) {
+        currentProgress = 99; // Hold at 99% until loaded
+      }
 
-    let step = 0;
-    const timer = setInterval(() => {
-      step++;
-      const linear = step / steps;
-      const eased = easeInOutQuart(Math.min(linear, 1));
-      currentProgress = Math.round(eased * 100);
-      setProgress(currentProgress);
+      setProgress(Math.min(Math.round(currentProgress), 100));
 
-      if (step >= steps) {
+      if (currentProgress >= 100) {
         clearInterval(timer);
-        // Small pause at 100 before exit
         setTimeout(() => {
           setIsExiting(true);
           setTimeout(() => {
@@ -41,10 +39,20 @@ export function Preloader() {
           }, 900);
         }, 300);
       }
-    }, interval);
+    };
+
+    timer = setInterval(updateProgress, interval);
+
+    // Ensure it eventually closes even if something hangs (fallback safety 5s)
+    const fallback = setTimeout(() => {
+      if (currentProgress < 100) {
+        currentProgress = 100;
+      }
+    }, 5000);
 
     return () => {
       clearInterval(timer);
+      clearTimeout(fallback);
       document.documentElement.style.overflow = "";
     };
   }, []);

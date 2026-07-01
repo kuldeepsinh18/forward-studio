@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const projects = [
   {
@@ -57,55 +57,56 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 1.0, ease: [0.76, 0, 0.24, 1] as any },
   },
 };
 
-const ProjectCard = ({ project }: { project: any }) => (
-  <motion.div
-    key={project.id}
-    variants={itemVariants}
-    className="group relative w-full aspect-[4/5] rounded-xl overflow-hidden cursor-pointer"
-  >
-    {/* Background / Video */}
-    <div className="absolute inset-0 w-full h-full" style={{ background: project.bg }}>
-      {project.videoUrl && (
-        <video
-          src={project.videoUrl}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-50 group-hover:opacity-80 transition-opacity duration-700 ease-[0.16,1,0.3,1]"
-        />
-      )}
-      {/* Noise overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.06] mix-blend-overlay pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          backgroundSize: "200px 200px",
-        }}
-      />
-      
-      {/* Image scale effect */}
-      <div className="absolute inset-0 bg-transparent group-hover:scale-105 transition-transform duration-1000 ease-[0.16,1,0.3,1] z-0 pointer-events-none" />
-    </div>
+const ProjectCard = ({ project }: { project: any }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "200px 0px" });
 
-    {/* Content overlay */}
-    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 z-10 transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105">
-      <h3 className="text-3xl md:text-4xl font-medium tracking-tight text-white mb-2 text-center drop-shadow-2xl">
-        {project.name}
-      </h3>
-      <p className="text-xs md:text-sm text-white/60 tracking-[0.2em] uppercase font-semibold text-center opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-500 ease-out">
-        {project.category}
-      </p>
-    </div>
-    
-    {/* Hover borders */}
-    <div className="absolute inset-0 border border-white/0 group-hover:border-white/10 rounded-xl transition-colors duration-700 pointer-events-none z-20"></div>
-  </motion.div>
-);
+  return (
+    <motion.div
+      ref={ref}
+      key={project.id}
+      variants={itemVariants}
+      className="group relative w-full aspect-[4/5] rounded-xl overflow-hidden cursor-pointer"
+    >
+      {/* Background / Video */}
+      <div className="absolute inset-0 w-full h-full" style={{ background: project.bg }}>
+        {project.videoUrl && (
+          <video
+            src={isInView ? project.videoUrl : ""}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-50 group-hover:opacity-80 transition-opacity duration-700 ease-[0.16,1,0.3,1]"
+          />
+        )}
+        
+        {/* Removed heavy SVG noise overlay for vastly improved hover performance */}
+        
+        {/* Image scale effect */}
+        <div className="absolute inset-0 bg-transparent group-hover:scale-105 transition-transform duration-1000 ease-[0.16,1,0.3,1] z-0 pointer-events-none" />
+      </div>
+
+      {/* Content overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 z-10 transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105">
+        <h3 className="text-3xl md:text-4xl font-medium tracking-tight text-white mb-2 text-center drop-shadow-2xl">
+          {project.name}
+        </h3>
+        <p className="text-xs md:text-sm text-white/60 tracking-[0.2em] uppercase font-semibold text-center opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-500 ease-[0.16,1,0.3,1]">
+          {project.category}
+        </p>
+      </div>
+      
+      {/* Hover borders */}
+      <div className="absolute inset-0 border border-white/0 group-hover:border-white/10 rounded-xl transition-colors duration-700 ease-[0.16,1,0.3,1] pointer-events-none z-20"></div>
+    </motion.div>
+  );
+};
 
 
 export default function WorksPage() {

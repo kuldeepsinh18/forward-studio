@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     formats: ['image/webp'],
   },
+  outputFileTracingExcludes: {
+    '*': ['public/**/*'],
+  },
 };
 
 module.exports = nextConfig;
