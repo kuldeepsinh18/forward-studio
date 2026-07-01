@@ -5,6 +5,9 @@ import { motion, useScroll, useTransform, cubicBezier } from "framer-motion";
 import Link from "next/link";
 import { RajAirCoolerModal } from "./RajAirCoolerModal";
 import { GopalSnacksModal } from "./GopalSnacksModal";
+import { MahalaxmiMasalaModal } from "./MahalaxmiMasalaModal";
+import { DtcStillWatersModal } from "./DtcStillWatersModal";
+import { DaburLalTailModal } from "./DaburLalTailModal";
 
 const ease = cubicBezier(0.76, 0, 0.24, 1);
 
@@ -25,21 +28,24 @@ const works = [
   },
   {
     id: 3,
-    name: "DTC Still Waters",
-    category: "REAL ESTATE CAMPAIGN",
-    bg: "linear-gradient(160deg, #060d1e 0%, #040810 40%, #050507 100%)",
+    name: "Mahalaxmi Masala",
+    category: "SOCIAL MEDIA CAMPAIGN",
+    bg: "linear-gradient(160deg, #3d1a06 0%, #1e0e04 40%, #0a0805 100%)",
+    videoUrl: "/selected-work/Mahalaxmi-masala/preview.mp4",
   },
   {
     id: 4,
-    name: "Tealogy",
-    category: "CAFÉ CAMPAIGN",
+    name: "DTC Still Waters",
+    category: "Brand Film",
     bg: "linear-gradient(160deg, #0a1e08 0%, #061208 40%, #050705 100%)",
+    videoUrl: "/selected-work/DTC Still Waters/preview.mp4",
   },
   {
     id: 5,
-    name: "LIC Campaign",
-    category: "INSURANCE CAMPAIGN",
+    name: "Dabur Lal Tail",
+    category: "Brand Film",
     bg: "linear-gradient(160deg, #1a100a 0%, #100804 40%, #080706 100%)",
+    videoUrl: "/selected-work/dabur lal tail/preview.mp4",
   },
 ];
 
@@ -57,7 +63,7 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick?: () 
   // Text parallax — moves slightly faster than background for depth
   const textY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
-  const isClickable = work.id === 1 || work.id === 2;
+  const isClickable = work.id === 1 || work.id === 2 || work.id === 3 || work.id === 4 || work.id === 5;
 
   return (
     <motion.div
@@ -131,6 +137,9 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick?: () 
 export function WorksSection() {
   const [rajOpen, setRajOpen] = useState(false);
   const [gopalOpen, setGopalOpen] = useState(false);
+  const [mahalaxmiOpen, setMahalaxmiOpen] = useState(false);
+  const [dtcOpen, setDtcOpen] = useState(false);
+  const [daburOpen, setDaburOpen] = useState(false);
 
   // Preload first row of assets for instant modal opening without compression
   useEffect(() => {
@@ -196,6 +205,9 @@ export function WorksSection() {
               onClick={() => {
                 if (work.id === 1) setGopalOpen(true);
                 if (work.id === 2) setRajOpen(true);
+                if (work.id === 3) setMahalaxmiOpen(true);
+                if (work.id === 4) setDtcOpen(true);
+                if (work.id === 5) setDaburOpen(true);
               }} 
             />
           ))}
@@ -210,7 +222,7 @@ export function WorksSection() {
           className="w-full flex items-center justify-center"
           style={{ height: "90vh" }}
         >
-          <div className="group flex items-center gap-0 cursor-default">
+          <Link href="/works" className="group flex items-center gap-0 cursor-pointer">
             <motion.span
               className="text-white font-medium leading-none tracking-[-0.03em]"
               style={{ fontSize: "clamp(48px, 7vw, 100px)" }}
@@ -219,7 +231,7 @@ export function WorksSection() {
             >
               All Works (5)
             </motion.span>
-          </div>
+          </Link>
         </motion.div>
 
       </section>
@@ -232,6 +244,18 @@ export function WorksSection() {
       <GopalSnacksModal 
         isOpen={gopalOpen} 
         onClose={() => setGopalOpen(false)} 
+      />
+      <MahalaxmiMasalaModal
+        isOpen={mahalaxmiOpen}
+        onClose={() => setMahalaxmiOpen(false)}
+      />
+      <DtcStillWatersModal
+        isOpen={dtcOpen}
+        onClose={() => setDtcOpen(false)}
+      />
+      <DaburLalTailModal
+        isOpen={daburOpen}
+        onClose={() => setDaburOpen(false)}
       />
     </>
   );

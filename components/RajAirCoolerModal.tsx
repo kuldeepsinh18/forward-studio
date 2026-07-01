@@ -66,25 +66,29 @@ const allAssets = [
   { type: 'post', num: 5 },
   { type: 'post', num: 6 },
   { type: 'reel', num: 1 },
+  { type: 'reel', num: 2 },
 ];
 
 export function RajAirCoolerModal({ isOpen, onClose }: CampaignModalProps) {
-  // Prevent body scrolling when modal is open
+  // Prevent background scrolling when modal is open
   useEffect(() => {
     if (isOpen) {
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center">
+        <div className="fixed inset-0 z-[999] flex items-center justify-center">
           
           {/* Overlay */}
           <motion.div 
@@ -93,7 +97,7 @@ export function RajAirCoolerModal({ isOpen, onClose }: CampaignModalProps) {
             animate="visible"
             exit="exit"
             onClick={onClose}
-            className="absolute inset-0 bg-black/80 backdrop-blur-xl cursor-pointer"
+            className="absolute inset-0 bg-black/95 backdrop-blur-md cursor-pointer"
           />
 
           {/* Modal Container */}
@@ -102,7 +106,7 @@ export function RajAirCoolerModal({ isOpen, onClose }: CampaignModalProps) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative w-full h-full bg-[#050505] overflow-y-auto overflow-x-hidden flex flex-col"
+            className="relative w-full h-full bg-transparent overflow-y-auto overflow-x-hidden overscroll-none flex flex-col"
           >
             {/* Close Button */}
             <div className="absolute top-4 right-4 md:top-6 md:right-6 lg:top-12 lg:right-12 z-50 mix-blend-difference">
@@ -127,16 +131,15 @@ export function RajAirCoolerModal({ isOpen, onClose }: CampaignModalProps) {
                 animate="visible"
                 className="w-full text-center mb-12 md:mb-16 lg:mb-24"
               >
-                <h2 className="text-[40px] md:text-[80px] lg:text-[120px] font-bold tracking-tight text-white leading-none mb-3 md:mb-4 lg:mb-6">
+                <h2 className="text-[40px] md:text-[80px] lg:text-[120px] font-bold tracking-tight text-white leading-none mb-3 md:mb-4 lg:mb-6 drop-shadow-2xl">
                   Raj Air Cooler
                 </h2>
-                <p className="text-[12px] md:text-[14px] lg:text-[18px] text-white/50 tracking-[0.2em] uppercase font-medium">
+                <p className="text-[12px] md:text-[14px] lg:text-[18px] text-white/70 tracking-[0.2em] uppercase font-medium">
                   Social Media Campaign
                 </p>
               </motion.div>
 
               {/* Grid Container for all posts and reels */}
-              {/* Desktop: 4 columns. Mobile: 2 columns. */}
               <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-10 mb-16 lg:mb-32">
                 
                 {allAssets.map((asset, index) => (
@@ -147,7 +150,7 @@ export function RajAirCoolerModal({ isOpen, onClose }: CampaignModalProps) {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-40px" }}
-                    className="w-full aspect-[4/5] bg-white/5 animate-pulse rounded-xl overflow-hidden relative transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-3 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] cursor-pointer z-10 hover:z-20"
+                    className="w-full aspect-[4/5] bg-transparent rounded-xl overflow-hidden relative transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-3 hover:scale-[1.03] hover:shadow-[0_30px_60px_rgba(0,0,0,0.6)] cursor-pointer z-10 hover:z-20"
                   >
                     {asset.type === 'post' ? (
                       <img 

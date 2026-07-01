@@ -11,8 +11,8 @@ interface CampaignModalProps {
 // Cinematic modal entry: subtle scale + fade + slight Y movement
 const modalVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95, y: 30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
     y: 0,
     transition: {
@@ -20,8 +20,8 @@ const modalVariants: Variants = {
       ease: [0.16, 1, 0.3, 1], // Buttery smooth luxury ease out
     }
   },
-  exit: { 
-    opacity: 0, 
+  exit: {
+    opacity: 0,
     scale: 0.98,
     y: 20,
     transition: {
@@ -33,11 +33,11 @@ const modalVariants: Variants = {
 
 const overlayVariants: Variants = {
   hidden: { opacity: 0 },
-  visible: { 
+  visible: {
     opacity: 1,
     transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] }
   },
-  exit: { 
+  exit: {
     opacity: 0,
     transition: { duration: 0.6 }
   }
@@ -70,31 +70,34 @@ const allAssets = [
 ];
 
 export function GopalSnacksModal({ isOpen, onClose }: CampaignModalProps) {
-  // Prevent body scrolling when modal is open
+  // Prevent background scrolling when modal is open
   useEffect(() => {
     if (isOpen) {
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center">
-          
+        <div className="fixed inset-0 z-[999] flex items-center justify-center">
+
           {/* Overlay */}
-          <motion.div 
+          <motion.div
             variants={overlayVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
             onClick={onClose}
-            className="absolute inset-0 bg-black/80 backdrop-blur-xl cursor-pointer"
+            className="absolute inset-0 bg-black/95 backdrop-blur-md cursor-pointer"
           />
 
           {/* Modal Container */}
@@ -103,11 +106,11 @@ export function GopalSnacksModal({ isOpen, onClose }: CampaignModalProps) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative w-full h-full bg-[#050505] overflow-y-auto overflow-x-hidden flex flex-col"
+            className="relative w-full h-full bg-transparent overflow-y-auto overflow-x-hidden overscroll-none flex flex-col"
           >
             {/* Close Button */}
             <div className="absolute top-4 right-4 md:top-6 md:right-6 lg:top-12 lg:right-12 z-50 mix-blend-difference">
-              <button 
+              <button
                 onClick={onClose}
                 className="group flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white text-white hover:text-black transition-all duration-500 backdrop-blur-md"
               >
@@ -119,41 +122,40 @@ export function GopalSnacksModal({ isOpen, onClose }: CampaignModalProps) {
             </div>
 
             <div className="w-[92vw] max-w-[1700px] mx-auto px-2 md:px-4 lg:px-6 pt-[100px] md:pt-[120px] lg:pt-[160px] pb-24 flex flex-col items-center">
-              
+
               {/* Section 1: Header */}
-              <motion.div 
-                variants={itemVariants} 
+              <motion.div
+                variants={itemVariants}
                 custom={0}
                 initial="hidden"
                 animate="visible"
                 className="w-full text-center mb-12 md:mb-16 lg:mb-24"
               >
-                <h2 className="text-[40px] md:text-[80px] lg:text-[120px] font-bold tracking-tight text-white leading-none mb-3 md:mb-4 lg:mb-6">
+                <h2 className="text-[40px] md:text-[80px] lg:text-[120px] font-bold tracking-tight text-white leading-none mb-3 md:mb-4 lg:mb-6 drop-shadow-2xl">
                   Gopal Snacks
                 </h2>
-                <p className="text-[12px] md:text-[14px] lg:text-[18px] text-white/50 tracking-[0.2em] uppercase font-medium">
+                <p className="text-[12px] md:text-[14px] lg:text-[18px] text-white/70 tracking-[0.2em] uppercase font-medium">
                   Social Media Campaign
                 </p>
               </motion.div>
 
               {/* Grid Container for all posts and reels */}
-              {/* Desktop: 4 columns. Mobile: 2 columns. */}
               <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-10 mb-16 lg:mb-32">
-                
+
                 {allAssets.map((asset, index) => (
-                  <motion.div 
+                  <motion.div
                     key={`${asset.type}-${asset.num}`}
                     custom={index + 1} // +1 so header is 0
                     variants={itemVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-40px" }}
-                    className="w-full aspect-[4/5] bg-white/5 animate-pulse rounded-xl overflow-hidden relative transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-3 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] cursor-pointer z-10 hover:z-20"
+                    className="w-full aspect-[4/5] bg-transparent rounded-xl overflow-hidden relative transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-3 hover:scale-[1.03] hover:shadow-[0_30px_60px_rgba(0,0,0,0.6)] cursor-pointer z-10 hover:z-20"
                   >
                     {asset.type === 'post' ? (
-                      <img 
-                        src={`/selected-work/gopal-snacks/post-0${asset.num}.png`} 
-                        alt={`Gopal Snacks Post 0${asset.num}`} 
+                      <img
+                        src={`/selected-work/gopal-snacks/post-0${asset.num}.png`}
+                        alt={`Gopal Snacks Post 0${asset.num}`}
                         className="w-full h-full object-cover"
                         loading={index < 4 ? undefined : "lazy"}
                         // @ts-ignore: React 18 supports fetchPriority but TS might complain depending on version
@@ -165,7 +167,7 @@ export function GopalSnacksModal({ isOpen, onClose }: CampaignModalProps) {
                       />
                     ) : (
                       <>
-                        <video 
+                        <video
                           src={`/selected-work/gopal-snacks/reel-0${asset.num}.mp4`}
                           autoPlay
                           muted
@@ -175,7 +177,7 @@ export function GopalSnacksModal({ isOpen, onClose }: CampaignModalProps) {
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 flex items-center justify-center -z-10 bg-[#111]">
-                           <span className="text-[#555] font-sans text-xs md:text-base">reel-0{asset.num}.mp4</span>
+                          <span className="text-[#555] font-sans text-xs md:text-base">reel-0{asset.num}.mp4</span>
                         </div>
                       </>
                     )}
