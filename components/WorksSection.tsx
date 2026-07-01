@@ -54,14 +54,19 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick?: () 
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ["start start", "end start"],
   });
+
+  // Sticky Stacking: Next item takes 150vh to reach the top.
+  // It only starts covering the current item after 50vh of scrolling (progress = 0.33).
+  const scale = useTransform(scrollYProgress, [0, 0.33, 1], [1, 1, 0.95]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.33, 1], [0, 0, 0.6]);
 
   // Subtle parallax: background moves slower than the page
   const bgY = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
 
   // Text parallax — moves slightly faster than background for depth
-  const textY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["-6%", "12%"]);
 
   // Lazy loading video
   const isInView = useInView(ref, { once: true, margin: "200px 0px" });
@@ -69,23 +74,22 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick?: () 
   const isClickable = work.id === 1 || work.id === 2 || work.id === 3 || work.id === 4 || work.id === 5;
 
   return (
-    <motion.div
-      ref={ref}
-      className={`relative w-full overflow-hidden group ${isClickable ? 'cursor-pointer' : 'cursor-default'}`}
-      style={{ height: "100vh" }}
-      onClick={isClickable ? onClick : undefined}
-    >
-      {/* Full-bleed background with parallax */}
+    <div ref={ref} className="relative w-full h-[150vh]">
       <motion.div
-        className="absolute inset-0 w-full overflow-hidden"
-        style={{
-          background: work.bg,
-          y: bgY,
-          // Slightly taller than container to allow parallax movement without gaps
-          height: "120%",
-          top: "-10%",
-        }}
+        className={`sticky top-0 w-full overflow-hidden group ${isClickable ? 'cursor-pointer' : 'cursor-default'}`}
+        style={{ height: "100vh", scale }}
+        onClick={isClickable ? onClick : undefined}
       >
+        {/* Full-bleed background with parallax */}
+        <motion.div
+          className="absolute inset-0 w-full overflow-hidden"
+          style={{
+            background: work.bg,
+            y: bgY,
+            height: "120%",
+            top: "-10%",
+          }}
+        >
         {work.videoUrl && (
           <video
             src={isInView ? work.videoUrl : ""}
@@ -113,9 +117,15 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick?: () 
         )}
       </motion.div>
 
+      {/* Dynamic Stacking Dark Overlay */}
+      <motion.div 
+        className="absolute inset-0 bg-black z-10 pointer-events-none" 
+        style={{ opacity: overlayOpacity }} 
+      />
+
       {/* Text — centered horizontally, positioned in upper-center area of the frame */}
       <motion.div
-        className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10 transition-transform duration-700 ease-out group-hover:scale-105"
+        className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-20 transition-transform duration-[1200ms] ease-[0.22,1,0.36,1] group-hover:scale-105"
         style={{ y: textY }}
       >
         <h3
@@ -131,10 +141,11 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick?: () 
           {work.category}
         </p>
         {!isClickable && (
-          <span className="text-white/30 text-xs tracking-widest uppercase mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Coming Soon</span>
+          <span className="text-white/30 text-xs tracking-widest uppercase mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-[0.22,1,0.36,1]">Coming Soon</span>
         )}
       </motion.div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
 
