@@ -247,7 +247,7 @@ export default function WorksPage() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          className="flex flex-col gap-6 md:gap-8 lg:gap-10"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10"
         >
           {brandFilms.map((project) => (
             <BrandFilmCard key={project.id} project={project} onClick={() => handleProjectClick(project.id)} />

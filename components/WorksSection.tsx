@@ -94,7 +94,7 @@ function ProjectItem({ work, onClick }: { work: (typeof works)[0], onClick?: () 
             loop
             playsInline
             preload="none"
-            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 ease-out"
+            className={`absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 ease-out ${work.category === 'Brand Film' ? 'scale-[1.35]' : ''}`}
           />
         )}
         
