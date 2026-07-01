@@ -138,7 +138,7 @@ export function DaburLalTailModal({ isOpen, onClose }: CampaignModalProps) {
                   className="w-[90vw] h-[85vh] lg:h-[90vh] max-w-[1800px] bg-black rounded-2xl overflow-hidden relative shadow-[0_30px_80px_rgba(0,0,0,0.8)] z-10"
                 >
                   <video
-                    src="/selected-work/dabur lal tail/Video.mp4"
+                    src="/selected-work/dabur lal tail/dabur lal tail.mp4"
                     autoPlay
                     muted
                     controls
