@@ -76,7 +76,7 @@ const ProjectCard = ({ project }: { project: any }) => (
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-80 transition-opacity duration-700 ease-[0.16,1,0.3,1]"
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-50 group-hover:opacity-80 transition-opacity duration-700 ease-[0.16,1,0.3,1]"
         />
       )}
       {/* Noise overlay */}
@@ -107,54 +107,6 @@ const ProjectCard = ({ project }: { project: any }) => (
   </motion.div>
 );
 
-const BrandFilmCard = ({ project }: { project: any }) => (
-  <motion.div
-    key={project.id}
-    variants={itemVariants}
-    className="group relative w-full aspect-video md:aspect-[21/9] lg:aspect-video rounded-xl overflow-hidden cursor-pointer shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-  >
-    {/* Background / Video */}
-    <div className="absolute inset-0 w-full h-full" style={{ background: project.bg }}>
-      {project.videoUrl && (
-        <video
-          src={project.videoUrl}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity duration-1000 ease-[0.16,1,0.3,1]"
-        />
-      )}
-      {/* Premium vignette overlay */}
-      <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.6)] z-0" />
-      
-      {/* Noise overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.06] mix-blend-overlay pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          backgroundSize: "200px 200px",
-        }}
-      />
-      
-      {/* Image scale effect */}
-      <div className="absolute inset-0 bg-transparent group-hover:scale-105 transition-transform duration-[1200ms] ease-[0.16,1,0.3,1] z-0 pointer-events-none" />
-    </div>
-
-    {/* Content overlay */}
-    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 z-10 transition-transform duration-[1200ms] ease-[0.16,1,0.3,1] group-hover:scale-105">
-      <h3 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white mb-3 text-center drop-shadow-2xl">
-        {project.name}
-      </h3>
-      <p className="text-sm md:text-base text-white/70 tracking-[0.3em] uppercase font-semibold text-center opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-700 ease-out">
-        {project.category}
-      </p>
-    </div>
-    
-    {/* Hover borders */}
-    <div className="absolute inset-0 border border-white/0 group-hover:border-white/15 rounded-xl transition-colors duration-1000 pointer-events-none z-20"></div>
-  </motion.div>
-);
 
 export default function WorksPage() {
   const campaigns = projects.filter(p => p.category.includes("CAMPAIGN"));
@@ -229,10 +181,10 @@ export default function WorksPage() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10"
         >
           {brandFilms.map((project) => (
-            <BrandFilmCard key={project.id} project={project} />
+            <ProjectCard key={project.id} project={project} />
           ))}
         </motion.div>
       </div>
