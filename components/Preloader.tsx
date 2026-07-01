@@ -9,6 +9,17 @@ export function Preloader() {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
+    // 1. Cache essential images for instant modal opens
+    const essentialImages = [
+      "/selected-work/gopal-snacks/post-01.png",
+      "/selected-work/raj-air-cooler/post-01.png",
+      "/selected-work/Mahalaxmi-masala/post-01.png",
+    ];
+    essentialImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
     // Prevent scroll during preloader
     document.documentElement.style.overflow = "hidden";
 
@@ -156,6 +167,14 @@ export function Preloader() {
               zIndex: 1,
             }}
           />
+
+          {/* Invisible Metadata Cache for Videos */}
+          <div style={{ display: "none" }}>
+            <video preload="metadata" src="/selected-work/DTC Still Waters/preview.mp4" />
+            <video preload="metadata" src="/selected-work/dabur lal tail/preview.mp4" />
+            <video preload="metadata" src="/selected-work/DTC Still Waters/DTC Still Waters.mp4" />
+            <video preload="metadata" src="/selected-work/dabur lal tail/dabur lal tail.mp4" />
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

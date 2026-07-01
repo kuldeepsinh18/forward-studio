@@ -2,7 +2,12 @@
 
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { RajAirCoolerModal } from "@/components/RajAirCoolerModal";
+import { GopalSnacksModal } from "@/components/GopalSnacksModal";
+import { MahalaxmiMasalaModal } from "@/components/MahalaxmiMasalaModal";
+import { DtcStillWatersModal } from "@/components/DtcStillWatersModal";
+import { DaburLalTailModal } from "@/components/DaburLalTailModal";
 
 const projects = [
   {
@@ -61,7 +66,7 @@ const itemVariants = {
   },
 };
 
-const ProjectCard = ({ project }: { project: any }) => {
+const ProjectCard = ({ project, onClick }: { project: any, onClick?: () => void }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "200px 0px" });
 
@@ -70,6 +75,7 @@ const ProjectCard = ({ project }: { project: any }) => {
       ref={ref}
       key={project.id}
       variants={itemVariants}
+      onClick={onClick}
       className="group relative w-full aspect-[4/5] rounded-xl overflow-hidden cursor-pointer"
     >
       {/* Background / Video */}
@@ -108,8 +114,67 @@ const ProjectCard = ({ project }: { project: any }) => {
   );
 };
 
+const BrandFilmCard = ({ project, onClick }: { project: any, onClick?: () => void }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "200px 0px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      key={project.id}
+      variants={itemVariants}
+      onClick={onClick}
+      className="group relative w-full aspect-video md:aspect-[21/9] rounded-xl overflow-hidden cursor-pointer"
+    >
+      {/* Background / Video */}
+      <div className="absolute inset-0 w-full h-full" style={{ background: project.bg }}>
+        {project.videoUrl && (
+          <video
+            src={isInView ? project.videoUrl : ""}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-50 group-hover:opacity-80 transition-opacity duration-700 ease-[0.16,1,0.3,1]"
+          />
+        )}
+        
+        {/* Image scale effect */}
+        <div className="absolute inset-0 bg-transparent group-hover:scale-105 transition-transform duration-1000 ease-[0.16,1,0.3,1] z-0 pointer-events-none" />
+      </div>
+
+      {/* Content overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 z-10 transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105">
+        <h3 className="text-3xl md:text-5xl font-medium tracking-tight text-white mb-2 text-center drop-shadow-2xl">
+          {project.name}
+        </h3>
+        <p className="text-xs md:text-sm text-white/60 tracking-[0.2em] uppercase font-semibold text-center opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-500 ease-[0.16,1,0.3,1]">
+          {project.category}
+        </p>
+      </div>
+      
+      {/* Hover borders */}
+      <div className="absolute inset-0 border border-white/0 group-hover:border-white/10 rounded-xl transition-colors duration-700 ease-[0.16,1,0.3,1] pointer-events-none z-20"></div>
+    </motion.div>
+  );
+};
+
 
 export default function WorksPage() {
+  const [rajOpen, setRajOpen] = useState(false);
+  const [gopalOpen, setGopalOpen] = useState(false);
+  const [mahalaxmiOpen, setMahalaxmiOpen] = useState(false);
+  const [dtcOpen, setDtcOpen] = useState(false);
+  const [daburOpen, setDaburOpen] = useState(false);
+
+  const handleProjectClick = (id: number) => {
+    if (id === 1) setMahalaxmiOpen(true);
+    if (id === 2) setGopalOpen(true);
+    if (id === 4) setRajOpen(true);
+    if (id === 5) setDtcOpen(true);
+    if (id === 6) setDaburOpen(true);
+  };
   const campaigns = projects.filter(p => p.category.includes("CAMPAIGN"));
   const brandFilms = projects.filter(p => p.category.includes("Brand Film"));
 
@@ -157,7 +222,7 @@ export default function WorksPage() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10"
         >
           {campaigns.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard key={project.id} project={project} onClick={() => handleProjectClick(project.id)} />
           ))}
         </motion.div>
       </div>
@@ -182,13 +247,19 @@ export default function WorksPage() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10"
+          className="flex flex-col gap-6 md:gap-8 lg:gap-10"
         >
           {brandFilms.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <BrandFilmCard key={project.id} project={project} onClick={() => handleProjectClick(project.id)} />
           ))}
         </motion.div>
       </div>
+
+      <RajAirCoolerModal isOpen={rajOpen} onClose={() => setRajOpen(false)} />
+      <GopalSnacksModal isOpen={gopalOpen} onClose={() => setGopalOpen(false)} />
+      <MahalaxmiMasalaModal isOpen={mahalaxmiOpen} onClose={() => setMahalaxmiOpen(false)} />
+      <DtcStillWatersModal isOpen={dtcOpen} onClose={() => setDtcOpen(false)} />
+      <DaburLalTailModal isOpen={daburOpen} onClose={() => setDaburOpen(false)} />
     </div>
   );
 }

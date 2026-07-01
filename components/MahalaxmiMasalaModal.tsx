@@ -8,25 +8,22 @@ interface CampaignModalProps {
   onClose: () => void;
 }
 
-// Cinematic modal entry: subtle scale + fade + slight Y movement
 const modalVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.95, y: 30 },
+  hidden: { opacity: 0, scale: 0.96 },
   visible: {
     opacity: 1,
     scale: 1,
-    y: 0,
     transition: {
-      duration: 1.2,
-      ease: [0.16, 1, 0.3, 1], // Buttery smooth luxury ease out
+      duration: 0.45,
+      ease: [0.22, 1, 0.36, 1],
     }
   },
   exit: {
     opacity: 0,
     scale: 0.98,
-    y: 20,
     transition: {
-      duration: 0.8,
-      ease: [0.7, 0, 0.84, 0],
+      duration: 0.35,
+      ease: [0.22, 1, 0.36, 1],
     }
   }
 };
@@ -97,7 +94,7 @@ export function MahalaxmiMasalaModal({ isOpen, onClose }: CampaignModalProps) {
             animate="visible"
             exit="exit"
             onClick={onClose}
-            className="absolute inset-0 bg-black/95 backdrop-blur-md cursor-pointer"
+            className="absolute inset-0 bg-[rgba(0,0,0,0.95)] backdrop-blur-[20px] cursor-pointer"
           />
 
           {/* Modal Container */}
